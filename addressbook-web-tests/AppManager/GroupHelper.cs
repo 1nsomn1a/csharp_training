@@ -25,10 +25,10 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper Modify(int g, GroupData newData)
+        public GroupHelper Modify(int index, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
-            SelectGroup(g);
+            SelectGroup(index);
             InitGroupModification();
             FillGroupForm(newData);
             SubmitGroupModification();
