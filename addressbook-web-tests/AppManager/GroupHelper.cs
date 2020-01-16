@@ -39,10 +39,10 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper Remove(int g)
+        public GroupHelper Remove(int index)
         {
             manager.Navigator.GoToGroupsPage();
-            SelectGroup(g);
+            SelectGroup(index);
             RemoveGroup();
             ReturnToGroupsPage();
 
@@ -84,7 +84,17 @@ namespace WebAddressbookTests
 
         public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            if (IsElementPresent(By.XPath("//input[@name='selected[]']")))
+            { 
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            }
+            else
+            {
+                GroupData group = new GroupData("aaa") { Header = "bbb", Footer = "ggg" };
+                Create(group);
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            }
+
             return this;
         }
 

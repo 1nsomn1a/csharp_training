@@ -24,10 +24,10 @@ namespace WebAddressbookTests
         [Test]
         public void EmptyGroupCreationTest()
         {
-            GroupData group = new GroupData("aaa")
+            GroupData group = new GroupData("bbb")
             {
-                Header = "ggg",
-                Footer = "ttt"
+                Header = "",
+                Footer = ""
             };
 
             app.Groups.Create(group);

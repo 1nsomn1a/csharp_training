@@ -16,7 +16,7 @@ namespace WebAddressbookTests
         public ContactHelper Create(ContactData contact)
         {
             manager.Navigator.GoToHomePage();
-            AddNewContact();
+            AddNewContactButton();
             FillContactForm(contact);
             SubmitContactCreation();
             manager.Navigator.GoToHomePage();
@@ -47,7 +47,17 @@ namespace WebAddressbookTests
 
         public ContactHelper EditContact()
         {
-            driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
+            if(IsElementPresent(By.XPath("//img[@alt='Edit']")))
+            {
+                driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
+            }
+            else
+            {
+                ContactData contact = new ContactData("test1") { LastName = "test2" };
+                Create(contact);
+                driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
+            }
+
             return this;
         }
 
@@ -57,7 +67,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper AddNewContact()
+        public ContactHelper AddNewContactButton()
         {
             driver.FindElement(By.LinkText("add new")).Click();
             return this;
@@ -80,7 +90,16 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])")))
+            {
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            }
+            else
+            {
+                ContactData contact = new ContactData("test1") { LastName = "test2" };
+                Create(contact);
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            }
             return this;
         }
 
